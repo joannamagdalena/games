@@ -2,7 +2,7 @@ import numpy as np
 import math
 
 # winning coalitions with cardinality
-def CountingWinningCoalitions(number_of_players,player_weights,weight_of_N,quota):
+def count_winning_coalitions(number_of_players,player_weights,weight_of_N,quota):
     C = np.zeros((weight_of_N-quota+1, number_of_players+1))
     if weight_of_N >= quota:
         C[weight_of_N-quota, number_of_players] = 1
@@ -18,7 +18,7 @@ def CountingWinningCoalitions(number_of_players,player_weights,weight_of_N,quota
 
 
 # winning coalitions with cardinality for a player with weight w_i
-def CountingWinningCoalitionsForWeight(number_of_players, player_weights, weight_of_N, quota, C):
+def count_winning_coalitions_for_weight(number_of_players, player_weights, weight_of_N, quota, C):
     weights_unique = list(set(player_weights))
     Cw = {}
     for weight in weights_unique:
@@ -39,8 +39,8 @@ def SSI(game):
     number_of_players = len(player_weights)  # number of players
     quota = game[1]  # quota
     weight_of_N = sum(player_weights)  # weight of the great coalition
-    C = CountingWinningCoalitions(number_of_players,player_weights,weight_of_N,quota)
-    Cw = CountingWinningCoalitionsForWeight(number_of_players, player_weights, weight_of_N, quota, C)
+    C = count_winning_coalitions(number_of_players,player_weights,weight_of_N,quota)
+    Cw = count_winning_coalitions_for_weight(number_of_players, player_weights, weight_of_N, quota, C)
     indices = []
 
     for i in range(1, number_of_players+1):
