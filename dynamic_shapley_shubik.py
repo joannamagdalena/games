@@ -2,7 +2,7 @@
 import numpy as np
 import math
 
-# winning coalitions per cardinality
+# winning coalitions per cardinality and weight
 def count_winning_coalitions(number_of_players,player_weights,weight_of_N,quota):
     C = np.zeros((weight_of_N-quota+1, number_of_players+1))
     if weight_of_N >= quota:
@@ -18,7 +18,7 @@ def count_winning_coalitions(number_of_players,player_weights,weight_of_N,quota)
 
 
 
-# winning coalitions per cardinality and weight
+# winning coalitions per cardinality and weight containing a player of weight
 def count_winning_coalitions_for_weight(number_of_players, player_weights, weight_of_N, quota, C):
     weights_unique = list(set(player_weights))
     Cw = {}
