@@ -32,14 +32,16 @@ def deegan_packel_indices(game):
     quota = game[1]  # quota
     weight_of_N = sum(player_weights)  # weight of the great coalition
 
+    partition_of_player_set = player_set_partition(player_weights)
+
     c = np.zeros([quota, number_of_players])
     c[0, 0] = 1
 
     numerator_of_index = 0
     alpha = np.zeros(number_of_players)
 
+    print(partition_of_player_set)
 
 
 g = [[1,2,2,2,4],8]
-#deegan_packel_indices(g)
-player_set_partition(g[0])
+deegan_packel_indices(g)
