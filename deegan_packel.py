@@ -2,6 +2,20 @@
 
 import numpy as np
 
+def player_set_partition(player_set):
+    partition = []
+    for p in range(0, len(player_set)):
+        exists_set = False
+        for s in partition:
+            if player_set[p] == player_set[s[0]]:
+                s.append(p)
+                exists_set = True
+
+        if not exists_set:
+            partition.append([p])
+    print(partition)
+
+
 def deegan_packel_indices(game):
     player_weights = game[0]  # players' weights
     number_of_players = len(player_weights)  # number of players
@@ -17,4 +31,5 @@ def deegan_packel_indices(game):
 
 
 g = [[1,2,2,2,4],8]
-deegan_packel_indices(g)
+#deegan_packel_indices(g)
+#player_set_partition(g[0])
