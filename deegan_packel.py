@@ -2,6 +2,7 @@
 
 import numpy as np
 
+# partition of player set by players' weights, reversed sorted by weights
 def player_set_partition(player_set):
     partition = []
     for p in range(0, len(player_set)):
@@ -13,7 +14,16 @@ def player_set_partition(player_set):
 
         if not exists_set:
             partition.append([p])
-    print(partition)
+
+    weights = sorted(set(player_set), reverse=True)
+    sorted_partition = []
+    for w in weights:
+        for s in partition:
+            if player_set[s[0]] == w:
+                sorted_partition.append(s)
+                break
+
+    return sorted_partition
 
 
 def deegan_packel_indices(game):
@@ -32,4 +42,4 @@ def deegan_packel_indices(game):
 
 g = [[1,2,2,2,4],8]
 #deegan_packel_indices(g)
-#player_set_partition(g[0])
+player_set_partition(g[0])
