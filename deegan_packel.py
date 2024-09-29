@@ -39,6 +39,7 @@ def deegan_packel_indices(game, player):
     t_star = 0
 
     numerator_of_index = 0
+    min_winning_coalitions = 0
     alpha = np.zeros(number_of_players)
 
     for x in partition_of_player_set:
@@ -62,7 +63,7 @@ def deegan_packel_indices(game, player):
                             numerator_of_index += (c[w, t] * c_prime) / (t + y + 1)
 
         t_star += y_prime
-    dpi = numerator_of_index
+    dpi = numerator_of_index #/ min_winning_coalitions
     print(dpi)
 
 
