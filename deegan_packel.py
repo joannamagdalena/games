@@ -54,10 +54,17 @@ def deegan_packel_indices(game, player):
                     for y in range(1, y_prime + 1):
                         c_prime = c_prime * (y_prime - y + 1) / y
 
+                        if w + (player_weights[x[0]] * y) <= quota - 1:
+                            c[w + (player_weights[x[0]] * y), t + y] += c[w, t] * c_prime
+                            alpha[t + y] = max(int(alpha[t + y]), w + (player_weights[x[0]] * y))
 
+                        if quota - player_weights[player - 1] <= w + (player_weights[x[0]] * y) and w + (player_weights[x[0]] * y) <= min(quota - 1, quota - 1 - player_weights[player - 1] + player_weights[x[0]]):
+                            numerator_of_index += (c[w, t] * c_prime) / (t + y + 1)
 
-    print(c)
+        t_star += y_prime
+    dpi = numerator_of_index
+    print(dpi)
 
 
 g = [[1,2,2,2,4],8]
-deegan_packel_indices(g, 1)
+deegan_packel_indices(g, 5)
