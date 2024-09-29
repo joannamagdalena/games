@@ -26,7 +26,7 @@ def player_set_partition(player_set):
     return sorted_partition
 
 
-def deegan_packel_indices(game):
+def deegan_packel_indices(game, player):
     player_weights = game[0]  # players' weights
     number_of_players = len(player_weights)  # number of players
     quota = game[1]  # quota
@@ -36,12 +36,28 @@ def deegan_packel_indices(game):
 
     c = np.zeros([quota, number_of_players])
     c[0, 0] = 1
+    t_star = 0
 
     numerator_of_index = 0
     alpha = np.zeros(number_of_players)
 
-    print(partition_of_player_set)
+    for x in partition_of_player_set:
+        if player_weights[x[0]] == player_weights[player - 1]:
+            y_prime = len(x) - 1
+        else:
+            y_prime = len(x)
+
+        for t in reversed(range(0, t_star+1)):
+            for w in reversed(range(0, int(alpha[t]) + 1)):
+                if c[w, t] > 0:
+                    c_prime = 1
+                    for y in range(1, y_prime + 1):
+                        c_prime = c_prime * (y_prime - y + 1) / y
+
+
+
+    print(c)
 
 
 g = [[1,2,2,2,4],8]
-deegan_packel_indices(g)
+deegan_packel_indices(g, 1)
