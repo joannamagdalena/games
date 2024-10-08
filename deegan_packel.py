@@ -2,6 +2,7 @@
 
 import numpy as np
 import pandas as pd
+import itertools
 
 # partition of player set by players' weights, reversed sorted by weights
 def player_set_partition(player_set):
@@ -28,24 +29,35 @@ def player_set_partition(player_set):
 
 
 def enumerate_function(given_set, n_prime, b_prime, weights):
+    min_sets = []
+    new_sets = []
     if n_prime == len(weights) - 1:
         given_set.append(n_prime)
-        return given_set
+        min_sets.append(given_set)
+        print(min_sets)
     else:
         a = weights[n_prime:]
+        if a[0] >= b_prime:
+            given_set.append(n_prime)
+            min_sets.append(given_set)
+            print(min_sets)
         if sum(a[1:]) >= b_prime:
-            return enumerate_function(given_set, n_prime + 1, b_prime, weights)
-        elif a[0] >= b_prime:
+            new_sets = enumerate_function(given_set, n_prime + 1, b_prime, weights)
+            min_sets = min_sets + new_sets
+            print(min_sets)
+        if a[0] < b_prime:
             given_set.append(n_prime)
-            return given_set
-        else:
-            given_set.append(n_prime)
-            return enumerate_function(given_set, n_prime + 1, b_prime - a[0], weights)
+            new_sets = enumerate_function(given_set, n_prime + 1, b_prime - a[0], weights)
+            min_sets = min_sets + new_sets
+            print(min_sets)
+    print(min_sets)
+    min_sets.sort()
+    return list(min_sets for min_sets,_ in itertools.groupby(min_sets))
 
 
 def minimal_sets_counter(player_weights, threshold):
     sorted_weights = sorted(player_weights, reverse=True)
-    return enumerate_function([], 0, threshold, sorted_weights)
+    print(enumerate_function([], 0, threshold, sorted_weights))
 
 
 def deegan_packel_indices(game, player):
@@ -61,7 +73,6 @@ def deegan_packel_indices(game, player):
     t_star = 0
 
     numerator_of_index = 0
-    min_winning_coalitions = 0
     alpha = np.zeros(number_of_players)
 
     for x in partition_of_player_set:
@@ -85,10 +96,12 @@ def deegan_packel_indices(game, player):
                             numerator_of_index += (c[w, t] * c_prime) / (t + y + 1)
 
         t_star += y_prime
+    #min_winning_coalitions = len(minimal_sets_counter(player_weights, quota))
     dpi = numerator_of_index #/ min_winning_coalitions
-    print(minimal_sets_counter(player_weights, quota))
+    #print(minimal_sets_counter(player_weights, quota))
+    minimal_sets_counter(player_weights, quota)
     print(dpi)
 
 
-g = [[1,2,2,2,4],8]
-deegan_packel_indices(g, 5)
+g = [[20,6,5,2,1,1,1,1],26]
+deegan_packel_indices(g, 1)
