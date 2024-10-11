@@ -31,26 +31,23 @@ def player_set_partition(player_set):
 def enumerate_function(given_set, n_prime, b_prime, weights):
     min_sets = []
     new_sets = []
+    given_set2 = given_set.copy()
+    given_set3 = given_set.copy()
     if n_prime == len(weights) - 1:
-        given_set.append(n_prime)
-        min_sets.append(given_set)
-        print(min_sets)
+        given_set2.append(n_prime)
+        min_sets.append(given_set2)
     else:
         a = weights[n_prime:]
         if a[0] >= b_prime:
-            given_set.append(n_prime)
-            min_sets.append(given_set)
-            print(min_sets)
+            given_set2.append(n_prime)
+            min_sets.append(given_set2)
         if sum(a[1:]) >= b_prime:
             new_sets = enumerate_function(given_set, n_prime + 1, b_prime, weights)
             min_sets = min_sets + new_sets
-            print(min_sets)
         if a[0] < b_prime:
-            given_set.append(n_prime)
-            new_sets = enumerate_function(given_set, n_prime + 1, b_prime - a[0], weights)
+            given_set3.append(n_prime)
+            new_sets = enumerate_function(given_set3, n_prime + 1, b_prime - a[0], weights)
             min_sets = min_sets + new_sets
-            print(min_sets)
-    print(min_sets)
     min_sets.sort()
     return list(min_sets for min_sets,_ in itertools.groupby(min_sets))
 
