@@ -54,7 +54,7 @@ def enumerate_function(given_set, n_prime, b_prime, weights):
 
 def minimal_sets_counter(player_weights, threshold):
     sorted_weights = sorted(player_weights, reverse=True)
-    print(enumerate_function([], 0, threshold, sorted_weights))
+    return enumerate_function([], 0, threshold, sorted_weights)
 
 
 def deegan_packel_indices(game, player):
@@ -93,10 +93,9 @@ def deegan_packel_indices(game, player):
                             numerator_of_index += (c[w, t] * c_prime) / (t + y + 1)
 
         t_star += y_prime
-    #min_winning_coalitions = len(minimal_sets_counter(player_weights, quota))
-    dpi = numerator_of_index #/ min_winning_coalitions
-    #print(minimal_sets_counter(player_weights, quota))
-    minimal_sets_counter(player_weights, quota)
+    min_winning_coalitions = minimal_sets_counter(player_weights, quota)
+    number_of_min_winning_coalitions = len(min_winning_coalitions)
+    dpi = numerator_of_index / number_of_min_winning_coalitions
     print(dpi)
 
 
