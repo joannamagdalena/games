@@ -96,7 +96,7 @@ def deegan_packel_indices(game, player):
     min_winning_coalitions = minimal_sets_counter(player_weights, quota)
     number_of_min_winning_coalitions = len(min_winning_coalitions)
     dpi = numerator_of_index / number_of_min_winning_coalitions
-    print(dpi)
+    return dpi
 
 
 g = [[20,6,5,2,1,1,1,1],26]
