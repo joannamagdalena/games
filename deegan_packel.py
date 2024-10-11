@@ -100,4 +100,5 @@ def deegan_packel_indices(game, player):
 
 
 g = [[20,6,5,2,1,1,1,1],26]
-deegan_packel_indices(g, 1)
+for i in range(1,len(g[0])+1):
+    print(deegan_packel_indices(g, i))
