@@ -99,6 +99,6 @@ def deegan_packel_indices(game, player):
     return dpi
 
 
-g = [[20,6,5,2,1,1,1,1],26]
-for i in range(1,len(g[0])+1):
-    print(deegan_packel_indices(g, i))
+#g = [[20,6,5,2,1,1,1,1],26]
+#for i in range(1,len(g[0])+1):
+#    print(deegan_packel_indices(g, i))
